@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head.html" . }}
+
+  <body>
+    <!-- ======= Header ======= -->
+    {{ partial "header.html" . }}
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    {{ with .Params.hero_area }}
+    <!---->
+    {{ if .enable }}
+    <section class="inner-hero d-flex align-items-center section-bg">
+      <div class="container">
+        <div class="row content align-items-center">
+          <div class="col-lg-12 text-center">
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            {{ range .content}}
+            <p class="mb-3">{{ .}}</p>
+            {{end}}
+            <!---->
+            {{ if .button.enable }}
+            <!---->
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </section>
+    {{ end }}
+    <!---->
+    {{ end }}
+    <!-- End Hero -->
+
+    <main id="main">
+      <!-- ======= roadmap Section ======= -->
+      {{ with .Params.roadmap }}
+      <!---->
+      {{ if .enable }}
+      <!---->
+      {{ range $i,$p := .roadmap_item }}
+      <!---->
+      {{if modBool $i 2}}
+      <section class="roadmap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mt-4 mt-md-0 d-flex flex-column">
+              <div class="section-title mb-5">
+                <h2 class="mb-5">{{.title}}</h2>
+                <p>{{.content | safeHTML }}</p>
+                <ul class="mt-5">
+                  {{ range .ul}}
+                  <li class="mt-3">{{. | safeHTML}}</li>
+                  {{end}}
+                </ul>
+              </div>
+              {{ with .button }}
+              <div class="btn text-start p-0">
+                <a href="{{ .link | relURL }}" target="_blank"
+                  >{{.label}}<sup><i class="bx bx-link-external"></i></sup
+                ></a>
+              </div>
+              {{end}}
+            </div>
+
+            <div
+              class="col-md-6 mt-4 mt-md-0 d-flex justify-content-center align-items-center"
+            >
+              <div class="rm-icon">
+                <i class="{{.icon }}"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {{ else }}
+      <section class="roadmap2 section-bg">
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-md-6 mt-4 mt-md-0 d-flex justify-content-center align-items-center"
+            >
+              <div class="rm-icon">
+                <i class="{{.icon }}"></i>
+              </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0 d-flex flex-column">
+              <div class="section-title mb-5">
+                <h2>{{.title}}</h2>
+                <p>{{.content | safeHTML }}</p>
+                <ul class="mt-5">
+                  {{ range .ul}}
+                  <li class="mt-3">{{. | safeHTML}}</li>
+                  {{end}}
+                </ul>
+              </div>
+              {{ with .button }}
+              <div class="btn text-start p-0">
+                <a href="{{ .link | relURL }}" target="_blank"
+                  >{{.label}}<sup><i class="bx bx-link-external"></i></sup
+                ></a>
+              </div>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </section>
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!-- End roadmap section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    {{ partial "footer.html" . }}
+    <!-- End Footer -->
+
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

@@ -397,6 +397,107 @@ section {
   padding: 3px;
 }
 
+.content-section pre {
+  background-color: var(--main-color);
+  border-radius: 8px;
+}
+/*--------------------------------------------------------------
+# inner pages
+--------------------------------------------------------------*/
+
+.inner-hero {
+  height: auto;
+  padding: 150px 150px;
+}
+
+.inner-hero h4 {
+  font-size: 27px;
+  color: var(--secondary-color);
+}
+
+.inner-hero h2 {
+  font-size: 60px;
+  color: var(--main-color);
+  font-weight: 700;
+}
+
+/*--------------------------------------------------------------
+# abstraction
+--------------------------------------------------------------*/
+.abstraction .icon-box {
+  margin-bottom: 20px;
+  padding: 30px;
+  border-radius: 6px;
+}
+.abstraction .icon-box i {
+  float: left;
+  color: var(--secondary-color);
+  font-size: 40px;
+}
+.abstraction .icon-box h4 {
+  margin-left: 70px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: var(--main-color);
+}
+.abstraction .icon-box h4 a {
+  color: var(--main-color);
+  transition: 0.3s;
+}
+.abstraction .icon-box p {
+  margin-left: 70px;
+  line-height: 24px;
+  font-size: 14px;
+}
+.abstraction .icon-box:hover h4 a {
+  color: var(--secondary-color);
+}
+
+/*--------------------------------------------------------------
+# inner pages
+--------------------------------------------------------------*/
+.roadmap2 a {
+  color: var(--third-color);
+}
+.roadmap a {
+  color: var(--third-color);
+}
+.roadmap .btn a {
+  background-color: var(--main-color);
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.roadmap .btn a:hover {
+  background-color: var(--third-color);
+}
+
+.roadmap .rm-icon i {
+  font-size: 200px;
+}
+
+.roadmap2 .btn a {
+  background-color: var(--third-color);
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.roadmap2 .btn a:hover {
+  background-color: var(--main-color);
+}
+
+.roadmap2 .rm-icon i {
+  font-size: 200px;
+  color: var(--third-color);
+}
+.roadmap2 h2 {
+  color: var(--third-color);
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
