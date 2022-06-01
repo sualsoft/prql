@@ -8,7 +8,9 @@
     <!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    {{ with .Params.hero_section }} {{ if .enable }}
+    {{ with .Params.hero_section }}
+    <!---->
+    {{ if .enable }}
     <section class="hero d-flex align-items-center">
       <div class="container">
         <div class="row content align-items-center">
@@ -16,17 +18,23 @@
             <h4>{{.tagline | markdownify }}</h4>
             <h2>{{ .heading | markdownify }}</h2>
             <p>{{ .bottom_text | markdownify }}</p>
-            {{ if .button.enable }} {{ with .button }}
+            {{ if .button.enable }}
+            <!---->
+            {{ with .button }}
             <a href="{{ .link | safeURL }}" title="{{ .label }}">
               {{ .label }}</a
             >
-            {{ end }} {{ end }}
+            {{ end }}
+            <!---->
+            {{ end }}
           </div>
           <div class="col-md-6 pt-4 pt-lg-0">{{.Content}}</div>
         </div>
       </div>
     </section>
-    {{ end }} {{ end }}
+    {{ end }}
+    <!---->
+    {{ end }}
     <!-- End Hero -->
 
     <main id="main">
