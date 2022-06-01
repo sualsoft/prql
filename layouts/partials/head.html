@@ -1,0 +1,39 @@
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>{{ .Page.Title }}</title>
+  <meta content="{{ .Page.Description }}" name="description" />
+  <meta content="{{ .Page.Keywords }}" name="keywords" />
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{
+  "/img/apple-touch-icon.png" | relURL }}">
+  <!--32*32-->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{
+  "/img/favicon-32x32.png" | relURL }}">
+  <!--16*16-->
+  <link rel="icon" type="image/png" sizes="16x16" href="{{
+  "/img/favicon-16x16.png" | relURL }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ "/plugins/animate.css/animate.min.css" | relURL }}" rel="stylesheet">
+  <link href="{{ "/plugins/bootstrap/css/bootstrap.min.css" | relURL }}" rel="stylesheet">
+  <link href="{{ "/plugins/bootstrap-icons/bootstrap-icons.css" | relURL }}" rel="stylesheet">
+  <link href="{{ "/plugins/glightbox/css/glightbox.min.css" | relURL }}" rel="stylesheet">
+  <link href="{{ "/plugins/boxicons/css/boxicons.min.css" | relURL }}" rel="stylesheet">
+
+  <!--Highlights-->
+  <link href="{{ "/plugins/highlight/highlight.css" | relURL }}" rel="stylesheet">
+  <script defer="defer" src="{{ "/plugins/highlight/highlight.min.js" | relURL }}"></script>
+  <script defer="defer" src="{{ "/plugins/highlight/prql.js" | relURL }}"></script>
+
+  <!-- Template Main CSS File -->
+  <link href="{{ "/css/style.css" | relURL }}" rel="stylesheet">
+
+</head>

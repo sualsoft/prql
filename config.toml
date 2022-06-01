@@ -1,0 +1,31 @@
+baseURL= "https://prql-lang.org/"
+languageCode=  "en-us"
+title= "PRQL"
+
+[params]
+  footer = "© 2022, PRQL developers. Apache 2.0 Licensed"
+
+[menu]
+[[menu.nav]]
+  identifier = 'Reference'
+  name = 'Reference'
+  title = 'Reference'
+  url = '/reference/'
+  pageref = '/reference/'
+  weight = 1
+
+[[menu.nav]]
+  identifier = 'Playground'
+  name = 'Playground'
+  title = 'Playground'
+  url = '/https://prql-lang.org/playground/'
+  pageref = '/https://prql-lang.org/playground/'
+  weight = 2
+
+[[menu.nav]]
+  identifier = 'Roadmap'
+  name = 'Roadmap'
+  title = 'Roadmap'
+  url = '/https://prql-lang.org/reference/'
+  pageref = '/https://prql-lang.org/reference/'
+  weight = 3
