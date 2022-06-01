@@ -14,21 +14,51 @@
     <section class="hero d-flex align-items-center">
       <div class="container">
         <div class="row content align-items-center">
-          <div class="col-md-6">
-            <h4>{{.tagline | markdownify }}</h4>
-            <h2>{{ .heading | markdownify }}</h2>
-            <p>{{ .bottom_text | markdownify }}</p>
+          <div class="col-lg-6">
+            <h4 class="mb-3">
+              <span>P</span>ipelined <span>R</span>elational <span>Q</span>uery
+              <span>L</span>anguage, pronounced <span>“Prequel”</span>.
+            </h4>
+            <h2 class="mb-3">{{ .heading | markdownify }}</h2>
+            <p class="mb-3">{{ .bottom_text | markdownify }}</p>
             {{ if .button.enable }}
             <!---->
             {{ with .button }}
-            <a href="{{ .link | safeURL }}" title="{{ .label }}">
-              {{ .label }}</a
-            >
+            <div class="btn">
+              <a href="{{ .link | safeURL }}" title="{{ .label }}">
+                {{ .label }}</a
+              >
+            </div>
             {{ end }}
             <!---->
             {{ end }}
           </div>
-          <div class="col-md-6 pt-4 pt-lg-0">{{.Content}}</div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <pre tabindex="0">
+            <code class="language-prql hljs" data-lang="prql">
+              <span class="hljs-keyword">from</span> employees
+              <span class="hljs-keyword">filter</span> start_date &gt; <span class="hljs-string">@2021-01-01 </span>
+              <span class="hljs-keyword">derive</span> [
+                <span class="hljs-variable">gross_salary </span>= salary + payroll_tax,
+                <span class="hljs-variable">gross_cost </span>= gross_salary + benefits_cost
+              ]
+              <span class="hljs-keyword">filter</span> gross_cost &gt; 0
+              <span class="hljs-keyword">group</span> [title, country] (
+                <span class="hljs-keyword">aggregate</span> [
+                  average salary,
+                  sum     salary,
+                  average gross_salary,
+                  sum     gross_salary,
+                  average gross_cost,
+                  <span class="hljs-variable">sum_gross_cost </span>= sum gross_cost,
+                  <span class="hljs-variable">ct </span>= count,
+                ]
+              )
+              <span class="hljs-keyword">sort</span> [sum_gross_cost, -country]
+              <span class="hljs-keyword">filter</span> ct &gt; 200
+              <span class="hljs-keyword">take</span> 20
+              </code></pre>
+          </div>
         </div>
       </div>
     </section>
@@ -38,475 +68,147 @@
     <!-- End Hero -->
 
     <main id="main">
-      <!-- ======= About Section ======= -->
-      <section id="about" class="about">
+      <!-- ======= principle Section ======= -->
+      {{ with .Params.principle_section }}
+      <!---->
+      {{ if .enable }}
+      <section class="principle_section">
         <div class="container">
           <div class="row content">
-            <div class="col-lg-6">
-              <h2>Eum ipsam laborum deleniti velitena</h2>
-              <h3>
-                Voluptatem dignissimos provident quasi corporis voluptates sit
-                assum perenda sruen jonee trave
-              </h3>
+            <div class="section-title text-center">
+              <h2 class="mb-3">{{ .title | markdownify }}</h2>
+              <p>{{.tagline | markdownify }}</p>
             </div>
-            <div class="col-lg-6 pt-4 pt-lg-0">
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum
-              </p>
+
+            {{ range .items }}
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+              <div class="card">
+                <i class="{{ .icon }}"></i>
+                <h4>{{ .title | markdownify }}</h4>
+                <p class="blue-border">
+                  <strong>{{ .main_text | markdownify }}</strong>
+                </p>
+                <p>{{ .content | markdownify }}</p>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </section>
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!-- End principle_section -->
+
+      <!-- ======= principle Section ======= -->
+      {{ with .Params.sql_section }}
+      <!---->
+      {{ if .enable }}
+      <section class="content-section section-bg">
+        <div class="container">
+          <div class="row content">
+            <div class="col-md-6 mb-4">
+              <div class="section-title">
+                <h3>{{.subtitile | markdownify }}</h3>
+                <h2 class="mb-3">{{ .title | markdownify }}</h2>
+                {{ range .content }}
+                <p class="mt-3">{{.}}</p>
+                {{end}}
+              </div>
+              {{ if .button.enable }}
+              <!---->
+              {{ with .button }}
+              <div class="btn p-0 mt-3">
+                <a href="{{ .link | relURL }}">{{ .label }}</a>
+              </div>
+              {{end}}
+              <!---->
+              {{end}}
+            </div>
+            <div
+              class="col-md-6 d-flex justify-content-center align-items-center icon"
+            >
+              <i class="{{.main_icon}}"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!-- End principle_section -->
+
+      <!-- ======= TOOLS Section ======= -->
+      {{ with .Params.tools_section }}
+      <!---->
+      {{ if .enable }}
+      <section class="content-section">
+        <div class="container">
+          <div class="row content">
+            <div class="section-title text-center">
+              <h2 class="mb-3">{{ .title | markdownify }}</h2>
+            </div>
+            <div
+              class="col-md-6 d-flex justify-content-center align-items-center icon"
+            >
+              <i class="{{.main_icon}}"></i>
+            </div>
+            <div class="col-md-6 mb-4">
+              {{ range .right_sections}}
+              <div class="card mb-3">
+                <p>
+                  <a href="{{ .link | relURL }}" target="_blank"
+                    >{{ .label }} <sup><i class="bx bx-link-external"></i></sup>
+                  </a>
+                  {{.text | markdownify}}
+                </p>
+              </div>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </section>
+      {{ end }}
+      <!---->
+      {{ end }}
+      <!-- End TOOLS section -->
+
+      <!-- ======= integrations_section ======= -->
+      {{ with .Params.integrations_section }}
+      <section class="content-section">
+        <div class="container">
+          <div class="row content">
+            {{ with .section_left }}
+            <div class="col-md-6 mb-4">
+              <h3 class="mb-5">{{ .title | markdownify }}</h3>
               <ul>
+                {{ range .list_1}}
                 <li>
-                  <i class="ri-check-double-line"></i> Ullamco laboris nisi ut
-                  aliquip ex ea commodo consequa
+                  <p>
+                    <a href="{{ .link | relURL }}"
+                      ><span
+                        >{{ .label }}
+                        <sup><i class="bx bx-link-external"></i></sup></span></a
+                    >{{ .text | markdownify }}
+                  </p>
                 </li>
-                <li>
-                  <i class="ri-check-double-line"></i> Duis aute irure dolor in
-                  reprehenderit in voluptate velit
-                </li>
-                <li>
-                  <i class="ri-check-double-line"></i> Ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in
-                </li>
-              </ul>
-              <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End About Section -->
-
-      <!-- ======= Clients Section ======= -->
-      <section id="clients" class="clients section-bg">
-        <div class="container">
-          <div class="row">
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-1.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-2.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-3.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-4.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-5.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-
-            <div
-              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-            >
-              <img
-                src="assets/img/clients/client-6.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Clients Section -->
-
-      <!-- ======= Services Section ======= -->
-      <section id="services" class="services">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="icon-box">
-                <i class="bi bi-briefcase"></i>
-                <h4><a href="#">Lorem Ipsum</a></h4>
-                <p>
-                  Voluptatum deleniti atque corrupti quos dolores et quas
-                  molestias excepturi sint occaecati cupiditate non provident
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 mt-4 mt-md-0">
-              <div class="icon-box">
-                <i class="bi bi-card-checklist"></i>
-                <h4><a href="#">Dolor Sitema</a></h4>
-                <p>
-                  Minim veniam, quis nostrud exercitation ullamco laboris nisi
-                  ut aliquip ex ea commodo consequat tarad limino ata
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 mt-4 mt-md-0">
-              <div class="icon-box">
-                <i class="bi bi-bar-chart"></i>
-                <h4><a href="#">Sed ut perspiciatis</a></h4>
-                <p>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 mt-4 mt-md-0">
-              <div class="icon-box">
-                <i class="bi bi-binoculars"></i>
-                <h4><a href="#">Nemo Enim</a></h4>
-                <p>
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                  qui officia deserunt mollit anim id est laborum
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 mt-4 mt-md-0">
-              <div class="icon-box">
-                <i class="bi bi-brightness-high"></i>
-                <h4><a href="#">Magni Dolore</a></h4>
-                <p>
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                  blanditiis praesentium voluptatum deleniti atque
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 mt-4 mt-md-0">
-              <div class="icon-box">
-                <i class="bi bi-calendar4-week"></i>
-                <h4><a href="#">Eiusmod Tempor</a></h4>
-                <p>
-                  Et harum quidem rerum facilis est et expedita distinctio. Nam
-                  libero tempore, cum soluta nobis est eligendi
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Services Section -->
-
-      <!-- ======= Portfolio Section ======= -->
-      <section id="portfolio" class="portfolio">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 d-flex justify-content-center">
-              <ul id="portfolio-flters">
-                <li data-filter="*" class="filter-active">All</li>
-                <li data-filter=".filter-app">App</li>
-                <li data-filter=".filter-card">Card</li>
-                <li data-filter=".filter-web">Web</li>
+                {{end}}
               </ul>
             </div>
-          </div>
-
-          <div class="row portfolio-container">
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-1.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 1</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
+            {{end}} {{ with .section_right }}
+            <div class="col-md-6 mb-4">
+              <h3 class="mb-5">{{ .title | markdownify }}</h3>
+              <ul>
+                <li><p>{{ .list_1 | safeHTML}}</p></li>
+                <li><p>{{ .list_2 | safeHTML}}</p></li>
+              </ul>
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-2.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 3</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-2.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-3.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-3.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-4.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 2</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-4.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-5.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 2</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-5.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 2"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-6.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>App</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-6.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-7.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 1</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-7.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-8.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Card 3</h4>
-                  <p>Card</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-8.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="assets/img/portfolio/portfolio-9.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>Web 3</h4>
-                  <p>Web</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-9.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 3"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      class="portfolio-details-lightbox"
-                      data-glightbox="type: external"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {{end}}
           </div>
         </div>
       </section>
-      <!-- End Portfolio Section -->
+      {{end}}
+      <!-- End integrations_section -->
     </main>
     <!-- End #main -->
 
