@@ -205,13 +205,36 @@ h6 {
   width: 100%;
   height: 100vh;
   background-color: #f2f9ff;
-  margin-top: 100px !important;
+  margin-top: 30px !important;
 }
 
-.hero pre {
+code {
   background-color: var(--main-color);
   border-radius: 8px;
 }
+
+/* width */
+pre ::-webkit-scrollbar {
+  height: 6px;
+}
+
+/* Track */
+pre ::-webkit-scrollbar-track {
+  background: var(--main-color);
+}
+
+/* Handle */
+pre ::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 4px;
+  width: 2px;
+}
+
+/* Handle on hover */
+pre ::-webkit-scrollbar-thumb:hover {
+  background: rgb(109, 109, 109);
+}
+
 
 .hero h4 {
   font-size: 28px;
@@ -222,7 +245,7 @@ h6 {
 }
 
 .hero h2 {
-  font-size: 60px;
+  font-size: 52px;
   color: var(--main-color);
   font-weight: 700;
 }
@@ -234,7 +257,7 @@ h6 {
   color: #fff;
   background-color: var(--third-color);
   padding: 10px 20px;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 500;
   margin-top: 20px;
   transition: 0.3s;
@@ -290,7 +313,7 @@ section {
   padding-bottom: 40px;
 }
 .section-title h2 {
-  font-size: 60px;
+  font-size: 58px;
   font-weight: 700;
   padding: 0;
   letter-spacing: 2px;
@@ -329,7 +352,7 @@ section {
 }
 .principle_section .card h4 {
   font-weight: 600;
-  font-size: 27px;
+  font-size: 24px;
   line-height: 60px;
   margin-bottom: 20px;
   color: var(--secondary-color);
@@ -354,7 +377,7 @@ section {
 .content-section .btn a {
   background-color: var(--main-color);
   color: #fff;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   padding: 10px 20px;
 }
@@ -412,12 +435,12 @@ section {
 }
 
 .inner-hero h4 {
-  font-size: 27px;
+  font-size: 24px;
   color: var(--secondary-color);
 }
 
 .inner-hero h2 {
-  font-size: 60px;
+  font-size: 52px;
   color: var(--main-color);
   font-weight: 700;
 }
@@ -451,6 +474,13 @@ section {
   line-height: 24px;
   font-size: 14px;
 }
+
+.abstraction .icon-box p span{
+  color: #f08c00;
+  background-color: var(--main-color);
+  padding: 1px 3px;
+  border-radius: 8px;
+}
 .abstraction .icon-box:hover h4 a {
   color: var(--secondary-color);
 }
@@ -468,7 +498,7 @@ section {
   background-color: var(--main-color);
   padding: 10px 20px;
   color: #fff;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   transition: 0.3s;
 }
@@ -484,7 +514,7 @@ section {
   background-color: var(--third-color);
   padding: 10px 20px;
   color: #fff;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   transition: 0.3s;
 }
@@ -514,7 +544,7 @@ section {
 }
 
 #footer .footer-top .footer-info h3 {
-  font-size: 60px;
+  font-size: 52px;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -525,7 +555,7 @@ section {
   margin-bottom: 40px;
 }
 #footer .footer-top a {
-  font-size: 27px;
+  font-size: 24px;
   background: #fff;
   font-weight: 600;
   color: var(--third-color);

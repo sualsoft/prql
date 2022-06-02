@@ -15,23 +15,25 @@ abstraction_section:
   items:
     - icon: "bx bxs-doughnut-chart"
       title: "Unnecessary repetition"
-      content: "the calculations for each measure are repeated, despite deriving from a previous measure. The repetition in the WHERE clause obfuscates the meaning of the expression."
+      content: "the calculations for each measure are repeated, despite deriving from a previous measure. The repetition in the <span>WHERE</span> clause obfuscates the meaning of the expression."
+    
+    - icon: "bx bx-math"
+      title: "Functions have multiple operators"
+      content: "<span>HAVING</span> & <span>WHERE</span> are fundamentally similar operations applied at different stages of the pipeline, but SQL’s lack of pipeline-based precedence requires it to have two different operators."
+
 
     - icon: "bx bx-cog"
       title: "Operators have multiple functions"
-      content: "the SELECT operator both creates new aggregations, and selects which columns to include."
+      content: "the <span>SELECT</span> operator both creates new aggregations, and selects which columns to include."
 
-    - icon: "bx bx-math"
-      title: "Functions have multiple operators"
-      content: "HAVING & WHERE are fundamentally similar operations applied at different stages of the pipeline, but SQL’s lack of pipeline-based precedence requires it to have two different operators."
-
+    
     - icon: "bx bx-code-curly"
       title: "Awkward syntax"
-      content: "when developing the query, commenting out the final line of the SELECT list causes a syntax error because of how commas are handled, and we need to repeat the columns in the GROUP BY clause in the SELECT list."
+      content: "when developing the query, commenting out the final line of the <span>SELECT</span> list causes a syntax error because of how commas are handled, and we need to repeat the columns in the <span>GROUP BY</span>  clause in the <span>SELECT</span>  list."
 
 simple_sql:
   enable: true
-  title: "Here’s a fairly simple SQL query:"
+  title: "Here’s the same query with PRQL::"
   content:
     - As well as using variables to reduce unnecessary repetition, the query is also more readable — it flows from top to bottom, each line representing a transformation of the previous line’s result. For example, TOP 20 / take 20 modify the final result in both queries — but only PRQL represents it as the final transformation. And context is localized — the aggregate transform is immediately wrapped in a group transform containing the columns to group by.
 

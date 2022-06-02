@@ -1,0 +1,20 @@
+    from employees                                
+    derive [                                      
+      gross_salary = salary + payroll_tax,
+      gross_cost = gross_salary + benefits_cost   
+    ]
+    filter gross_cost > 0
+    group [title, country] (                      
+      aggregate [
+        average salary,
+        sum     salary,
+        average gross_salary,
+        sum     gross_salary,
+        average gross_cost,
+        sum_gross_cost = sum gross_cost,
+        ct = count,
+      ]
+    )
+    sort [sum_gross_cost, -country]
+    filter ct > 200
+    take 20

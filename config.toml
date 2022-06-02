@@ -7,19 +7,19 @@ title= "PRQL"
 
 [menu]
 [[menu.nav]]
-  identifier = 'Reference'
-  name = 'Reference'
-  title = 'Reference'
-  url = '/reference/'
-  pageref = '/reference/'
+  identifier = 'Book'
+  name = 'Book'
+  title = 'Book'
+  url = 'https://prql-lang.org/book/'
+  pageref = 'https://prql-lang.org/book/'
   weight = 1
 
 [[menu.nav]]
   identifier = 'Playground'
   name = 'Playground'
   title = 'Playground'
-  url = '/https://prql-lang.org/playground/'
-  pageref = '/https://prql-lang.org/playground/'
+  url = 'https://prql-lang.org/playground/'
+  pageref = 'https://prql-lang.org/playground/'
   weight = 2
 
 [[menu.nav]]

@@ -46,41 +46,20 @@
             <div class="section-title text-center">
               <h3 class="mb-3">Here’s a fairly simple SQL query:</h3>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-12">
               <pre
                 tabindex="0"
                 style="
                   color: #f8f8f2;
-                  background-color: #272822;
                   -moz-tab-size: 4;
                   -o-tab-size: 4;
                   tab-size: 4;
                 "
-              ><code class="language-sql hljs" data-lang="sql">
-                <span class="hljs-keyword">SELECT</span> TOP <span class="hljs-number">20</span>
-                title,
-                country,
-                <span class="hljs-built_in">AVG</span>(salary) <span class="hljs-keyword">AS</span> average_salary,
-                <span class="hljs-built_in">SUM</span>(salary) <span class="hljs-keyword">AS</span> sum_salary,
-                <span class="hljs-built_in">AVG</span>(salary <span class="hljs-operator">+</span> payroll_tax) <span class="hljs-keyword">AS</span> average_gross_salary,
-                <span class="hljs-built_in">SUM</span>(salary <span class="hljs-operator">+</span> payroll_tax) <span class="hljs-keyword">AS</span> sum_gross_salary,
-                <span class="hljs-built_in">AVG</span>(salary <span class="hljs-operator">+</span> payroll_tax <span class="hljs-operator">+</span> benefits_cost) <span class="hljs-keyword">AS</span> average_gross_cost,
-                <span class="hljs-built_in">SUM</span>(salary <span class="hljs-operator">+</span> payroll_tax <span class="hljs-operator">+</span> benefits_cost) <span class="hljs-keyword">AS</span> sum_gross_cost,
-                <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">AS</span> ct
-              <span class="hljs-keyword">FROM</span>
-                employees
-              <span class="hljs-keyword">WHERE</span>
-                start_date <span class="hljs-operator">&gt;</span> <span class="hljs-type">DATE</span>(<span class="hljs-string">'2021-01-01'</span>)
-                <span class="hljs-keyword">AND</span> salary <span class="hljs-operator">+</span> payroll_tax <span class="hljs-operator">+</span> benefits_cost <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span>
-              <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>
-                title,
-                country
-              <span class="hljs-keyword">HAVING</span>
-                <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-operator">&gt;</span> <span class="hljs-number">200</span>
-              <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>
-                sum_gross_cost,
-                country <span class="hljs-keyword">DESC</span>
-              </code></pre>
+              >
+              <code>
+                {{ partial "codes/motivation_1.html" . }}
+              </code>
+            </pre>
             </div>
           </div>
         </div>
@@ -97,16 +76,15 @@
             <div class="section-title text-center mb-5">
               <h2>{{.title}}</h2>
               <p>
-                Even this simple query demonstrates some of the problems with
-                SQL’s lack of abstractions:
+                {{.subtitle}}
               </p>
-            </div>
+            </div> 
             {{ range .items }}
             <div class="col-md-6 mt-4 mt-md-0 d-flex">
               <div class="icon-box section-bg">
                 <i class="{{.icon}}"></i>
                 <h4><a>{{.title}}</a></h4>
-                <p>{{.content}}</p>
+                <p>{{.content | safeHTML}}</p>
               </div>
             </div>
             {{end}}
@@ -136,29 +114,11 @@
             <div class="col-lg-6">
               <pre
                 tabindex="0"
-              ><code class="language-prql hljs" data-lang="prql">
-                <span class="hljs-keyword">from</span> employees                                <span class="hljs-comment"># Each line transforms the previous result.</span>
-                <span class="hljs-keyword">filter</span> start_date &gt; <span class="hljs-string">@2021-01-01 </span>              <span class="hljs-comment"># Clear date syntax.</span>
-                <span class="hljs-keyword">derive</span> [                                      <span class="hljs-comment"># `derive` adds columns / variables.</span>
-                  <span class="hljs-variable">gross_salary </span>= salary + payroll_tax,
-                  <span class="hljs-variable">gross_cost </span>= gross_salary + benefits_cost   <span class="hljs-comment"># Variables can use other variables.</span>
-                ]
-                <span class="hljs-keyword">filter</span> gross_cost &gt; 0
-                <span class="hljs-keyword">group</span> [title, country] (                      <span class="hljs-comment"># `group` runs a pipeline over each group.</span>
-                  <span class="hljs-keyword">aggregate</span> [                                 <span class="hljs-comment"># `aggregate` reduces a column to a row.</span>
-                    average salary,
-                    sum     salary,
-                    average gross_salary,
-                    sum     gross_salary,
-                    average gross_cost,
-                    <span class="hljs-variable">sum_gross_cost </span>= sum gross_cost,          <span class="hljs-comment"># `=` sets a column name.</span>
-                    <span class="hljs-variable">ct </span>= count,
-                  ]
-                )
-                <span class="hljs-keyword">sort</span> [sum_gross_cost, -country]               <span class="hljs-comment"># `-country` means descending order.</span>
-                <span class="hljs-keyword">filter</span> ct &gt; 200
-                <span class="hljs-keyword">take</span> 20
-                </code></pre>
+              >
+                <code class="language-prql hljs" data-lang="prql">
+                  {{ partial "codes/motivation_2.html" . }}
+                </code>
+              </pre>
             </div>
           </div>
         </div>
@@ -168,7 +128,7 @@
       {{ end }}
       <!-- End simple_sql section -->
 
-      <!-- ======= TOOLS Section ======= -->
+      <!-- ======= complex  Section ======= -->
       {{ with .Params.complex_example }}
       <!---->
       {{ if .enable }}
@@ -180,40 +140,12 @@
               <h2 class="mb-3">{{ .title | markdownify }}</h2>
               <p class="mb-3">{{ .botton_text | markdownify }}</p>
             </div>
-            <div class="col-lg-12 d-flex d-flex justify-content-center">
+            <div class="col-lg-12">
               <pre
                 tabindex="0"
-                style="
-                  color: #f8f8f2;
-                  background-color: #272822;
-                  -moz-tab-size: 4;
-                  -o-tab-size: 4;
-                  tab-size: 4;
-                "
-              ><code class="language-sql hljs" data-lang="sql">
-                <span class="hljs-keyword">WITH</span> total_returns <span class="hljs-keyword">AS</span> (
-                <span class="hljs-keyword">SELECT</span>
-                  <span class="hljs-type">date</span>,
-                  sec_id,
-                  <span class="hljs-comment">-- Can't use a `WHERE` clause, as it would affect the row that the `LAG` function referenced.</span>
-                  IF(is_valid_price, price_adjusted <span class="hljs-operator">/</span> <span class="hljs-built_in">LAG</span>(price_adjusted, <span class="hljs-number">1</span>) <span class="hljs-keyword">OVER</span>
-                    (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> sec_id <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">date</span>) <span class="hljs-operator">-</span> <span class="hljs-number">1</span> <span class="hljs-operator">+</span> dividend_return, <span class="hljs-keyword">NULL</span>) <span class="hljs-keyword">AS</span> return_total,
-                  IF(is_valid_price, price_adjusted_usd <span class="hljs-operator">/</span> <span class="hljs-built_in">LAG</span>(price_adjusted_usd, <span class="hljs-number">1</span>) <span class="hljs-keyword">OVER</span>
-                    (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> sec_id <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">date</span>) <span class="hljs-operator">-</span> <span class="hljs-number">1</span> <span class="hljs-operator">+</span> dividend_return, <span class="hljs-keyword">NULL</span>) <span class="hljs-keyword">AS</span> return_usd,
-                  IF(is_valid_price, price_adjusted <span class="hljs-operator">/</span> <span class="hljs-built_in">LAG</span>(price_adjusted, <span class="hljs-number">1</span>) <span class="hljs-keyword">OVER</span>
-                    (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> sec_id <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">date</span>) <span class="hljs-operator">-</span> <span class="hljs-number">1</span> <span class="hljs-operator">+</span> dividend_return, <span class="hljs-keyword">NULL</span>)
-                    <span class="hljs-operator">-</span> interest_rate <span class="hljs-operator">/</span> <span class="hljs-number">252</span> <span class="hljs-keyword">AS</span> return_excess,
-                  IF(is_valid_price, price_adjusted_usd <span class="hljs-operator">/</span> <span class="hljs-built_in">LAG</span>(price_adjusted_usd, <span class="hljs-number">1</span>) <span class="hljs-keyword">OVER</span>
-                    (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> sec_id <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">date</span>) <span class="hljs-operator">-</span> <span class="hljs-number">1</span> <span class="hljs-operator">+</span> dividend_return, <span class="hljs-keyword">NULL</span>)
-                    <span class="hljs-operator">-</span> interest_rate <span class="hljs-operator">/</span> <span class="hljs-number">252</span> <span class="hljs-keyword">AS</span> return_usd_excess
-                <span class="hljs-keyword">FROM</span> prices
-              )
-              <span class="hljs-keyword">SELECT</span>
-                <span class="hljs-operator">*</span>,
-                return_total <span class="hljs-operator">-</span> (interest_rate <span class="hljs-operator">/</span> <span class="hljs-number">252</span>) <span class="hljs-keyword">AS</span> return_excess,
-                <span class="hljs-built_in">EXP</span>(<span class="hljs-built_in">SUM</span>(<span class="hljs-built_in">LN</span>(GREATEST(<span class="hljs-number">1</span> <span class="hljs-operator">+</span> return_total <span class="hljs-operator">-</span> (interest_rate <span class="hljs-operator">/</span> <span class="hljs-number">252</span>), <span class="hljs-number">0.01</span>))) <span class="hljs-keyword">OVER</span> (<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">date</span>)) <span class="hljs-keyword">AS</span> return_excess_index
-              <span class="hljs-keyword">FROM</span> total_returns
-              <span class="hljs-keyword">JOIN</span> interest_rates <span class="hljs-keyword">USING</span> (<span class="hljs-type">date</span>)
+              >
+              <code class="language-sql hljs" data-lang="sql">
+                {{ partial "codes/motivation_3.html" . }}
               </code></pre>
             </div>
             <p class="mt-5 text-center">{{ .content | markdownify }}</p>
@@ -223,7 +155,7 @@
       {{ end }}
       <!---->
       {{ end }}
-      <!-- End TOOLS section -->
+      <!-- End complex section -->
 
       <!-- ======= same_query section ======= -->
       {{ with .Params.same_query }}
@@ -233,45 +165,12 @@
             <div class="section-title text-center">
               <h2 class="mb-3">{{ .title | markdownify }}</h2>
             </div>
-            <div class="col-md-12 mb-4">
-              <pre
-                tabindex="0"
-              ><code class="language-prql hljs" data-lang="prql">
-                <span class="hljs-keyword">prql</span> <span class="hljs-params">version:</span>0.3 <span class="hljs-params">db:</span>snowflake                         <span class="hljs-comment"># PRQL version &amp; database name.</span>
-
-                <span class="hljs-keyword">func</span> excess x -&gt; (x - interest_rate) / 252            <span class="hljs-comment"># Functions are clean and simple.</span>
-                <span class="hljs-keyword">func</span> if_valid x -&gt; is_valid_price ? <span class="hljs-params">x :</span> <span class="hljs-literal">null</span>
-                <span class="hljs-keyword">func</span> lag_day x -&gt; <span class="hljs-keyword">group</span> sec_id (                      <span class="hljs-comment"># `group` is used for window partitions too</span>
-                  <span class="hljs-keyword">sort</span> date
-                  <span class="hljs-keyword">window</span> (                                            <span class="hljs-comment"># `window` runs a pipeline over each window</span>
-                    lag 1 x                                           <span class="hljs-comment"># `lag 1 x` lags the `x` col by 1</span>
-                  )
-                )
-                
-                <span class="hljs-keyword">func</span> ret x -&gt; x / (x | lag_day) - 1 + dividend_return
-                
-                <span class="hljs-keyword">from</span> prices
-                <span class="hljs-keyword">join</span> interest_rates [date]
-                <span class="hljs-keyword">select</span> [                                              <span class="hljs-comment"># `select` only includes unnamed columns, unlike `derive`</span>
-                  <span class="hljs-variable">return_total </span>=      prices_adj   | ret | if_valid   <span class="hljs-comment"># `|` can be used rather than newlines</span>
-                  <span class="hljs-variable">return_usd </span>=        prices_usd   | ret | if_valid
-                  <span class="hljs-variable">return_excess </span>=     return_total | excess
-                  <span class="hljs-variable">return_usd_excess </span>= return_usd   | excess
-                  <span class="hljs-variable">return_index </span>= (                                    <span class="hljs-comment"># No need for a CTE</span>
-                    return_total + 1
-                    excess
-                    greatest 0.01
-                    ln
-                    <span class="hljs-keyword">group</span> sec_id (                                    <span class="hljs-comment"># Complicated logic remains clear(er)</span>
-                      <span class="hljs-keyword">sort</span> date
-                      <span class="hljs-keyword">window</span> ..current (                              <span class="hljs-comment"># Rolling sum</span>
-                        sum
-                      )
-                    )
-                    exp
-                  )
-                ]
-                </code></pre>
+            <div class="col-lg-12 mb-4">
+              <pre  tabindex="0">
+                <code class="language-prql hljs" data-lang="prql">
+                  {{ partial "codes/motivation_4.html" . }}
+                </code>
+              </pre>
             </div>
             <div class="col-md-6">
               {{range .left_paragraph}}
