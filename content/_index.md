@@ -47,7 +47,7 @@ principle_section:
 ####################### SQL Section #########################
 sql_section:
   enable: true
-  title: "Motivation"
+  title: "Example"
   subtitile: "PRQL’s SQL queries"
   content:
     - "Even though wildly adopted and readable as a sentence, SQL is inconsistent and becomes unmanageable as soon as query complexity goes beyond the most simple queries. "
@@ -55,7 +55,7 @@ sql_section:
   main_icon: "bx bx-trip"
   button:
     enable: true
-    link: "/motivation/"
+    link: "/example/"
     label: "Here are examples"
 
 ####################### Tools Section #########################

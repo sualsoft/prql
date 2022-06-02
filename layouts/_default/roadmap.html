@@ -55,11 +55,15 @@
                 </ul>
               </div>
               {{ with .button }}
+              <!---->
+              {{ if .enable }}
               <div class="btn text-start p-0">
                 <a href="{{ .link | relURL }}" target="_blank"
                   >{{.label}}<sup><i class="bx bx-link-external"></i></sup
                 ></a>
               </div>
+              {{end}}
+              <!---->
               {{end}}
             </div>
 
@@ -95,11 +99,15 @@
                 </ul>
               </div>
               {{ with .button }}
+              <!---->
+              {{ if .enable }}
               <div class="btn text-start p-0">
                 <a href="{{ .link | relURL }}" target="_blank"
                   >{{.label}}<sup><i class="bx bx-link-external"></i></sup
                 ></a>
               </div>
+              {{end}}
+              <!---->
               {{end}}
             </div>
           </div>

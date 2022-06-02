@@ -4,12 +4,12 @@
     <a href="/" class="logo me-auto"><img src="/img/logo.png" alt="" class="img-fluid"></a>
 
     <nav id="navbar" class="navbar">
-      {{ $currentPage := . }}
       <ul>
-        {{ range .Site.Menus.nav }}
-        <li><a href="{{ .URL }}" class="nav-link scrollto {{ if $currentPage.IsMenuCurrent "nav" . }}active{{ end }} ">{{ .Name }}</a></li>
-        
-        {{end}}
+        <li><a href="https://prql-lang.org/book/" class="nav-link scrollto" target="_blank">Book<sup><i class="bx bx-link-external"></i></sup></a></li>
+        <li><a href="https://prql-lang.org/playground/" class="nav-link scrollto" target="_blank">Playground<sup><i class="bx bx-link-external"></i></sup></a></li>
+        <li><a href="/roadmap/" class="nav-link scrollto" >Roadmap<sup></a></li>
+          <li><a href="/example/" class="nav-link scrollto" >Example<sup></a></li>
+
         <li><a href="https://github.com/prql/prql" class="social-link"><i class='bx bxl-github'></i></a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>

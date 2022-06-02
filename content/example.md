@@ -1,10 +1,10 @@
 ---
 title: Motivation
-layout: motivation
+layout: example
 
 hero_area:
   enable: true
-  title: Motivation
+  title: Example
   sub_title: A simple example
   text:
 
